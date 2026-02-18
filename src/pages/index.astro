@@ -1,6 +1,9 @@
 ---
 import "../styles/global.css";
 import Header from "../layouts/Header.astro";
+
+import { getCollection } from "astro:content";
+const posts = await getCollection("posts");
 ---
 
 <!doctype html>
@@ -14,5 +17,14 @@ import Header from "../layouts/Header.astro";
   </head>
   <body>
     <Header />
+    <ul>
+      {
+        posts.map((post) => (
+          <li>
+            <a href={`/posts/${post.slug}`}>{post.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
   </body>
 </html>
